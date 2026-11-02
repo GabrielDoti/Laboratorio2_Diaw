@@ -258,18 +258,6 @@ Clientes são criados pela tela **Cadastre-se**.
 
 ---
 
-## 🎥 Demonstração
-
-> Adicione aqui os prints das telas (salve em `docs/img/` e referencie com `![Descrição](docs/img/arquivo.png)`).
-
-| Tela | Captura |
-| :---: | :---: |
-| **Login** | _print aqui_ |
-| **Cadastro de cliente** | _print aqui_ |
-| **Pedidos (cliente)** | _print aqui_ |
-| **Avaliação de pedidos (agente)** | _print aqui_ |
-| **Automóveis** | _print aqui_ |
-
 #### Exemplo de chamada à API
 
 ```bash
