@@ -1,0 +1,34 @@
+@startuml pacotes
+title Sistema de Aluguel de Carros - Diagrama de Pacotes (Visão Lógica)
+
+package "Front-end (React + Vite)" as FE {
+  package "pages"
+  package "components"
+  package "services (api)"
+}
+
+package "Back-end (Spring Boot - MVC)" as BE {
+  package "controller" as C
+  package "service" as S
+  package "repository" as R
+  package "model" as M
+  package "dto" as D
+  package "security" as SEC
+  package "config" as CFG
+}
+
+database "Supabase\n(PostgreSQL)" as DB
+
+"pages" --> "components"
+"pages" --> "services (api)"
+"services (api)" --> C : HTTP / JSON
+
+C --> S
+C --> D
+S --> R
+S --> M
+R --> M
+SEC --> S
+CFG --> SEC
+R --> DB : JDBC / JPA
+@enduml

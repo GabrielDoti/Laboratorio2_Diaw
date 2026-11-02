@@ -1,0 +1,50 @@
+@startuml casos-de-uso
+title Sistema de Aluguel de Carros - Diagrama de Casos de Uso
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Cliente" as Cliente
+actor "Agente" as Agente
+actor "Empresa" as Empresa
+actor "Banco" as Banco
+
+Agente <|-- Empresa
+Agente <|-- Banco
+
+rectangle "Sistema de Aluguel de Carros" {
+  usecase "Cadastrar-se" as UC01
+  usecase "Autenticar (login)" as UC02
+  usecase "Gerenciar dados do cliente\n(CRUD)" as UC03
+  usecase "Introduzir pedido de aluguel" as UC04
+  usecase "Consultar pedido / status" as UC05
+  usecase "Modificar pedido" as UC06
+  usecase "Cancelar pedido" as UC07
+  usecase "Avaliar pedido\n(análise financeira)" as UC08
+  usecase "Executar contrato de aluguel" as UC09
+  usecase "Conceder contrato de crédito" as UC10
+  usecase "Registrar automóvel" as UC11
+}
+
+Cliente --> UC01
+Cliente --> UC03
+Cliente --> UC04
+Cliente --> UC05
+Cliente --> UC06
+Cliente --> UC07
+
+Agente --> UC02
+Agente --> UC06
+Agente --> UC08
+Agente --> UC09
+Agente --> UC11
+Banco --> UC10
+
+UC01 ..> UC02 : <<include>>
+UC03 ..> UC02 : <<include>>
+UC04 ..> UC02 : <<include>>
+UC05 ..> UC02 : <<include>>
+UC06 ..> UC02 : <<include>>
+UC07 ..> UC02 : <<include>>
+UC09 ..> UC08 : <<include>>
+UC10 ..> UC09 : <<extend>>
+@enduml

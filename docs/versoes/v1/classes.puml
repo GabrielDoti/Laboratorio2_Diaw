@@ -1,0 +1,101 @@
+@startuml classes
+title Sistema de Aluguel de Carros - Diagrama de Classes
+skinparam classAttributeIconSize 0
+
+enum Perfil {
+  CLIENTE
+  EMPRESA
+  BANCO
+}
+
+enum StatusPedido {
+  EM_ANALISE
+  APROVADO
+  REPROVADO
+  CONTRATO_EXECUTADO
+  CANCELADO
+}
+
+class Usuario {
+  - id : Long
+  - login : String
+  - senha : String
+  - perfil : Perfil
+}
+
+interface Proprietario {
+}
+
+class Cliente {
+  - id : Long
+  - rg : String
+  - cpf : String
+  - nome : String
+  - endereco : String
+  - profissao : String
+}
+
+class Rendimento {
+  - id : Long
+  - entidadeEmpregadora : String
+  - valor : BigDecimal
+}
+
+abstract class Agente {
+  - id : Long
+  - nome : String
+  - cnpj : String
+}
+
+class Empresa
+class Banco
+
+class Automovel {
+  - id : Long
+  - matricula : String
+  - ano : int
+  - marca : String
+  - modelo : String
+  - placa : String
+}
+
+class Pedido {
+  - id : Long
+  - dataCriacao : LocalDateTime
+  - dataInicio : LocalDate
+  - dataFim : LocalDate
+  - status : StatusPedido
+}
+
+class Contrato {
+  - id : Long
+  - dataExecucao : LocalDate
+}
+
+class ContratoCredito {
+  - id : Long
+  - valor : BigDecimal
+  - taxaJuros : BigDecimal
+}
+
+Usuario "1" -- "0..1" Cliente
+Usuario "1" -- "0..1" Agente
+Usuario --> Perfil
+
+Cliente "1" *-- "0..3" Rendimento
+Agente <|-- Empresa
+Agente <|-- Banco
+
+Proprietario <|.. Cliente
+Proprietario <|.. Empresa
+Proprietario <|.. Banco
+
+Automovel "*" --> "1" Proprietario : propriedade
+Pedido "*" --> "1" Cliente : solicita
+Pedido "*" --> "1" Automovel : refere-se a
+Pedido --> StatusPedido
+Pedido "1" -- "0..1" Contrato
+Pedido "*" --> "0..*" Agente : avaliado por
+Contrato "1" -- "0..1" ContratoCredito
+ContratoCredito "*" --> "1" Banco : concedido por
+@enduml
